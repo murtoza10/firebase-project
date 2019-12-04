@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'firebase-project';
+  courses : any[];
+
+  constructor(public db: AngularFireDatabase){
+        db.list('/courses').valueChanges().subscribe(courses=>{
+          this.courses = courses;
+          console.log(this.courses);
+        });
+        
+        
+  }
 }
